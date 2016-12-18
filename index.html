@@ -21,19 +21,31 @@
 		<div class="container">
 			<div class="form-group" >
 				<label for="task">Tasks</label>
-				<input type="text" class="form-control" id="task" placeholder="需要做什么">
+				<input type="text" class="form-control" id="task" placeholder="What to do next?">
 			</div>
-
-			<div class="list-group" id ="list">
+			<div class="panel panel-warning" id = "todo-panel">
+				<div class="panel-heading">TODO: </div>
+				<div class="panel-body">
+					<div class="list-group" id ="list">
+					</div>
+				</div>
 			</div>
-			<div class="list-group" id ="del-list">
+			<div class="panel panel-info" id = "del-panel">
+				<div class="panel-heading">DONE: </div>
+				<div class="panel-body">
+					<div class="list-group" id ="del-list">
+					</div>
+				</div>
 			</div>
 		</div>
 
 	</div>
 	<script type="text/javascript">
+        $("#todo-panel").hide();
+        $("#del-panel").hide();
         $(document).keydown(function(event){
             if (event.keyCode == 13){
+                $("#todo-panel").show();
 				var task = document.getElementById("task");
                 if (task.value != ""){
 					var list =document.getElementById("list");
@@ -46,7 +58,12 @@
 					radio.onclick = function () {
 						this.nextSibling.setAttribute('style','text-decoration:line-through');
 						var del = this.parentNode.cloneNode(true);
-						document.getElementById("del-list").appendChild(del);
+						var delList = document.getElementById("del-list");
+						delList.insertBefore(del, delList.firstChild);
+						$("#del-panel").show();
+						//console.log(list.childNodes.length);
+						if (list.childNodes.length == 2)
+                            $("#todo-panel").hide();
 						$(this).parent().remove();
 					}
 
@@ -55,7 +72,8 @@
 
 					li.appendChild(radio);
 					li.appendChild(text);
-					list.appendChild(li);
+					list.insertBefore(li, list.firstChild);
+					//list.appendChild(li);
 					task.value = "";
                 }
             }
