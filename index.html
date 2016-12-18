@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="stylesheet" type="text/css"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <title>todo-list</title>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>My Todo-List</h1>
+		</div>
+		<div class="container">
+			<div class="form-group" >
+				<label for="task">Tasks</label>
+				<input type="text" class="form-control" id="task" placeholder="需要做什么">
+			</div>
+
+			<div class="list-group" id ="list">
+			</div>
+			<div class="list-group" id ="del-list">
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript">
+        $(document).keydown(function(event){
+            if (event.keyCode == 13){
+                var task = document.getElementById("task");
+                var list =document.getElementById("list");
+                var li = document.createElement("li");
+                li.setAttribute('class', 'list-group-item');
+
+
+                var radio = document.createElement("input");
+                radio.type ="checkbox";
+                radio.onclick = function () {
+//					this.nextSibling.setAttribute('style','text-decoration:line-through');
+//					var del = this.parentNode.cloneNode();
+//					document.getElementById("del-list").appendChild(del);
+//					//document.getElementById("del-list").appendChild();
+					$(this).parent().remove();
+                }
+
+                var text = document.createElement("span");
+                text.innerText = ' ' + task.value;
+
+                li.appendChild(radio);
+                li.appendChild(text);
+                list.appendChild(li);
+                task.value = "";
+            }
+        });
+	</script>
+</body>
