@@ -15,10 +15,12 @@
 
 <body>
 	<div class="container">
-		<div class="jumbotron">
-			<h1>My Todo-List</h1>
-		</div>
-		<div class="container">
+		<ol class="breadcrumb">
+			<li><span id = "year"></span></li>
+			<li><span id = "month"></span></li>
+			<li><span id ="date"></span></li>
+		</ol>
+		<!--<div class="container">-->
 			<div class="form-group" >
 				<label for="task">Tasks</label>
 				<input type="text" class="form-control" id="task" placeholder="What to do next?">
@@ -37,12 +39,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		<!--</div>-->
 
 	</div>
 	<script type="text/javascript">
-        $("#todo-panel").hide();
-        $("#del-panel").hide();
+		init();
         $(document).keydown(function(event){
             if (event.keyCode == 13){
                 $("#todo-panel").show();
@@ -78,5 +79,13 @@
                 }
             }
         });
+        function init() {
+            $("#todo-panel").hide();
+            $("#del-panel").hide();
+            var myDate = new Date();
+            document.getElementById("year").innerText = myDate.getFullYear().toString();
+			document.getElementById("month").innerText = myDate.getMonth() + 1;
+			document.getElementById("date").innerText = myDate.getDate();
+        }
 	</script>
 </body>
